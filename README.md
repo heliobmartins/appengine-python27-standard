@@ -1,4 +1,4 @@
-# Backend for HR project's README
+# Backend for CAAS project's README
 
 ## Getting Dependencies
 ```
@@ -8,17 +8,17 @@ pip install -t lib -r requirements.txt
 
 ## OpenApi Specification
 
-#### Generating OpenApi config file to UserApi
+#### Generating OpenApi config file to ReferralApi
 ```
-python lib/endpoints/endpointscfg.py get_openapi_spec api.[UserApi] --hostname hrdashmanagement.appspot.com
+python lib/endpoints/endpointscfg.py get_openapi_spec api.ReferralApi --hostname caas-prototype.appspot.com
 ```
 
-** Output:** *hrdashboardv1openapi.json*
+** Output:** *Caasv1openapi.json*
 
 #### Implanting OpenApi file to Google Cloud Endpoints
 
 ```
-gcloud endpoints services deploy hrdashboardv1openapi.json
+gcloud endpoints services deploy caasv1openapi.json
 ```
 
 ## Deployment
