@@ -1,7 +1,7 @@
 from google.appengine.ext import ndb
 
 
-class ReferralStore(ndb.Model):
+class Referral(ndb.Model):
     claim_number = ndb.IntegerProperty()
     name = ndb.StringProperty()
     email = ndb.StringProperty()

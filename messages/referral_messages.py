@@ -1,5 +1,4 @@
 """RPC Messages module."""
-import endpoints
 from protorpc import messages as m
 
 
