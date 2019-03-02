@@ -11,3 +11,7 @@ class InstitutionResponse(m.Message):
     name = m.StringField(1)
     code = m.StringField(2)
     logo = m.StringField(3)
+
+
+class InstitutionList(m.Message):
+    items = m.MessageField(InstitutionResponse, 1, repeated=True)
