@@ -1,7 +1,6 @@
 import endpoints
 
 from messages.referral_converter import convert_to_into_entity, convert_entity_into_to
-from messages.referral_messages import ReferralResponse
 from utils.caas_utils import normalize_email
 
 
