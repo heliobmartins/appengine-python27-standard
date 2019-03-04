@@ -14,4 +14,4 @@ class InstitutionResponse(m.Message):
 
 
 class InstitutionList(m.Message):
-    items = m.MessageField(InstitutionResponse, 1, repeated=True)
+    institutions = m.MessageField(InstitutionResponse, 1, repeated=True)

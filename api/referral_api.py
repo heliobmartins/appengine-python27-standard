@@ -8,7 +8,7 @@ from .api_definition import api_definition
 
 @api_definition.api_class(resource_name='referral', path='referral')
 class ReferralApi(remote.Service):
-    service = ReferralService.get_instance()
+    _service = ReferralService.get_instance()
 
     @endpoints.method(ReferralRequest,
                       ReferralResponse,
@@ -25,4 +25,4 @@ class ReferralApi(remote.Service):
                                    phone=request.phone,
                                    consent=request.consent)
 
-        return ReferralApi.service.create(referral)
+        return self._service.create(referral)
