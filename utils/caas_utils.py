@@ -2,9 +2,7 @@ from validate_email import validate_email
 
 
 def remove_spaces_if_exist(entry):
-    if ' ' in entry:
-        entry = entry.replace(" ", "")
-    return entry
+    return entry.replace(" ", "")
 
 
 def normalize_email(email):
