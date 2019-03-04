@@ -19,8 +19,7 @@ class ReferralService:
             ReferralService()
         return ReferralService.__instance
 
-    @staticmethod
-    def create(new_referral):
+    def create(self, new_referral):
         normalized_email = normalize_email(new_referral.email)
         if normalized_email:
             referral = convert_to_into_entity(new_referral)

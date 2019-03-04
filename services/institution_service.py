@@ -19,15 +19,13 @@ class InstitutionService(object):
             InstitutionService()
         return InstitutionService.__instance
 
-    @staticmethod
-    def create(new_institution):
+    def create(self, new_institution):
         institution = convert_to_into_entity(new_institution)
         if institution.put():
             return convert_entity_into_to(institution)
         raise endpoints.BadRequestException
 
-    @staticmethod
-    def list_all_entities():
+    def list_all_entities(self):
         institutions = Institution.query().fetch()
         institutions_converted = []
         for institution in institutions:
