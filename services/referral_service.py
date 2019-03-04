@@ -4,7 +4,21 @@ from messages.referral_converter import convert_to_into_entity, convert_entity_i
 from utils.caas_utils import normalize_email
 
 
-class ReferralService(object):
+class ReferralService:
+    __instance = None
+
+    def __init__(self):
+        if ReferralService.__instance is not None:
+            raise Exception("This class is a Singleton")
+        else:
+            ReferralService.__instance = self
+
+    @classmethod
+    def get_instance(cls):
+        if ReferralService.__instance is None:
+            ReferralService()
+        return ReferralService.__instance
+
     @staticmethod
     def create(new_referral):
         normalized_email = normalize_email(new_referral.email)
