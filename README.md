@@ -32,3 +32,10 @@ gcloud app deploy
 ```
 dev_appserver.py ./app.yaml
 ```
+
+#### Updating indexes on datastore
+```
+gcloud app deploy index.yaml --version=1 
+or 
+gcloud datastore indexes create
+```
