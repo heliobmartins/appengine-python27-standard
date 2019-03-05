@@ -13,5 +13,10 @@ class InstitutionResponse(m.Message):
     logo = m.StringField(3)
 
 
+#Marcot, eh assim que faz?
+class InstitutionCode(m.Message):
+    code = m.StringField(1)
+
+
 class InstitutionList(m.Message):
     institutions = m.MessageField(InstitutionResponse, 1, repeated=True)

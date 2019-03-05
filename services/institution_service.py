@@ -32,3 +32,14 @@ class InstitutionService(object):
             converted = convert_entity_into_to(institution)
             institutions_converted.append(converted)
         return institutions_converted
+
+    def list_entities_by_code(self, code):
+        print code
+        q = Institution.query()
+        q = q.filter(Institution.code == code)
+        q = q.order(Institution.name)
+        institutions_converted = []
+        for institution in q:
+            converted = convert_entity_into_to(institution)
+            institutions_converted.append(converted)
+        return institutions_converted

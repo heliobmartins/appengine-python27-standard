@@ -1,7 +1,7 @@
 import endpoints
 from protorpc import remote, message_types
 
-from messages.institution_messages import InstitutionResponse, InstitutionRequest, InstitutionList
+from messages.institution_messages import InstitutionResponse, InstitutionRequest, InstitutionList, InstitutionCode
 from services.institution_service import InstitutionService
 from .api_definition import api_definition
 
@@ -27,4 +27,12 @@ class InstitutionApi(remote.Service):
                       name='list')
     def list(self, _):
         institutions_list = self._service.list_all_entities()
+        return InstitutionList(institutions=[institution_to for institution_to in institutions_list])
+
+    @endpoints.method(InstitutionCode,
+                      InstitutionList,
+                      path='listByCode/{code}', http_method="GET",
+                      name='listByCode')
+    def search(self, request):
+        institutions_list = self._service.list_entities_by_code(code=request.code)
         return InstitutionList(institutions=[institution_to for institution_to in institutions_list])
