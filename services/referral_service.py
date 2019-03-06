@@ -1,5 +1,6 @@
 import endpoints
 
+from domain.institution_domain import Institution
 from messages.referral_converter import convert_to_into_entity, convert_entity_into_to
 from utils.caas_utils import normalize_email
 
@@ -24,6 +25,9 @@ class ReferralService:
         if normalized_email:
             referral = convert_to_into_entity(new_referral)
             referral.email = normalized_email
+            #TODO: Is this correct?
+            institution_query = Institution.get_by_id(new_referral.institution_code)
+            referral.institution_code = institution_query.code
             referral.put()
             return convert_entity_into_to(referral)
         # TODO: How can I change the code error? 502 or something.

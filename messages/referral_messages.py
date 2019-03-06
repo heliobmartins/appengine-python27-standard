@@ -8,6 +8,7 @@ class ReferralRequest(m.Message):
     email = m.StringField(3, required=True)
     phone = m.StringField(4, required=True)
     consent = m.BooleanField(5, required=True)
+    institution_code = m.IntegerField(6, required=True)
 
 
 class ReferralResponse(m.Message):

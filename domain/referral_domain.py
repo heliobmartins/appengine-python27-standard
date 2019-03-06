@@ -8,3 +8,4 @@ class Referral(ndb.Model):
     email = ndb.StringProperty()
     phone = ndb.StringProperty()
     consent = ndb.BooleanProperty()
+    institution_code = ndb.StringProperty()
