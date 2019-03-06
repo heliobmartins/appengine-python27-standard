@@ -24,6 +24,6 @@ class ReferralApi(remote.Service):
                                    email=request.email,
                                    phone=request.phone,
                                    consent=request.consent,
-                                   institution_code=request.institution_code)
+                                   institution_id=request.institution_id)
 
         return self._service.create(referral)

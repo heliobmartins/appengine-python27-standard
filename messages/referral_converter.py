@@ -7,7 +7,8 @@ def convert_entity_into_to(referral):
                             name=referral.name,
                             email=referral.email,
                             phone=referral.phone,
-                            consent=referral.consent)
+                            consent=referral.consent,
+                            institution_id=referral.institution_id)
 
 
 def convert_to_into_entity(referral_to):
@@ -15,4 +16,5 @@ def convert_to_into_entity(referral_to):
                     name=referral_to.name,
                     email=referral_to.email,
                     phone=referral_to.phone,
-                    consent=referral_to.consent)
+                    consent=referral_to.consent,
+                    institution_id=referral_to.institution_id)
