@@ -47,3 +47,13 @@ class ReferralService:
             return convert_entity_into_to(referral)
         # TODO: How can I change the code error? 502 or something.
         raise endpoints.BadRequestException
+
+    def fetch_referrals_from_institutions(self, id):
+        q = Referral.query(ancestor=ndb.Key(Institution, id))
+        referral_converted = []
+        for referral in q:
+            print referral
+            converted = convert_entity_into_to(referral)
+            referral_converted.append(converted)
+
+        return referral_converted

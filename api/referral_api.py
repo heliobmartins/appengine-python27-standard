@@ -1,7 +1,8 @@
 import endpoints
 from protorpc import remote
 
-from messages.referral_messages import ReferralRequest, ReferralResponse
+from messages.institution_messages import InstitutionId
+from messages.referral_messages import ReferralRequest, ReferralResponse, ReferralResponseList
 from services.referral_service import ReferralService
 from .api_definition import api_definition
 
@@ -27,3 +28,12 @@ class ReferralApi(remote.Service):
                                    institution_id=request.institution_id)
 
         return self._service.create(referral)
+
+    # TODO: Marcot, Essa API pode usar mensagens de outras entidades?
+    @endpoints.method(InstitutionId,
+                      ReferralResponseList,
+                      path='listByCode/{id}', http_method="GET",
+                      name='listByCode')
+    def search(self, request):
+        referral_list = self._service.fetch_referrals_from_institutions(id=request.id)
+        return ReferralResponseList(referrals=[referral_to for referral_to in referral_list])

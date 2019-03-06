@@ -34,7 +34,6 @@ class InstitutionService(object):
         return institutions_converted
 
     def list_entities_by_code(self, code):
-        print code
         q = Institution.query()
         q = q.filter(Institution.code == code)
         q = q.order(Institution.name)

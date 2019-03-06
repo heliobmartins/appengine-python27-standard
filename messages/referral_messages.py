@@ -18,3 +18,6 @@ class ReferralResponse(m.Message):
     phone = m.StringField(4)
     consent = m.BooleanField(5)
     institution_id = m.IntegerField(6)
+
+class ReferralResponseList(m.Message):
+    referrals = m.MessageField(ReferralResponse, 1, repeated=True)

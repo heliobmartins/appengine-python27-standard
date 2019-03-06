@@ -18,5 +18,9 @@ class InstitutionCode(m.Message):
     code = m.StringField(1)
 
 
+class InstitutionId(m.Message):
+    id = m.IntegerField(1)
+
+
 class InstitutionList(m.Message):
     institutions = m.MessageField(InstitutionResponse, 1, repeated=True)
