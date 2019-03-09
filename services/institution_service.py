@@ -1,7 +1,8 @@
 import endpoints
+from google.appengine.ext.ndb import Cursor
 
 from domain.institution_domain import Institution
-from messages.institution_converter import convert_to_into_entity, convert_entity_into_to
+from messages.institution_messages import InstitutionListResponse
 
 
 class InstitutionService(object):
@@ -20,25 +21,29 @@ class InstitutionService(object):
         return InstitutionService.__instance
 
     def create(self, new_institution):
-        institution = convert_to_into_entity(new_institution)
-        if institution.put():
-            return convert_entity_into_to(institution)
-        raise endpoints.BadRequestException
+        self._validate_entity_creation(new_institution)
+        return self._save(new_institution)
 
-    def list_all_entities(self):
-        institutions = Institution.query().fetch()
-        institutions_converted = []
-        for institution in institutions:
-            converted = convert_entity_into_to(institution)
-            institutions_converted.append(converted)
-        return institutions_converted
+    def list_entities_by_code(self, request):
+        cursor = Cursor(urlsafe=request.cursor)
+        query = Institution.query()
+        print"\n\n\n"
+        print request
+        if request.code:
+            query = Institution.query(Institution.code == request.code)
+        institutions, next_cursor, more = query.fetch_page(page_size=request.page_size, start_cursor=cursor)
+        response = InstitutionListResponse()
+        response.institutions = [Institution.encode(i) for i in institutions]
+        if more and next_cursor:
+            response.cursor = next_cursor.urlsafe()
+        return response
 
-    def list_entities_by_code(self, code):
-        q = Institution.query()
-        q = q.filter(Institution.code == code)
-        q = q.order(Institution.name)
-        institutions_converted = []
-        for institution in q:
-            converted = convert_entity_into_to(institution)
-            institutions_converted.append(converted)
-        return institutions_converted
+    def _validate_entity_creation(self, new_institution):
+        pass
+        # raise endpoints.BadRequestException("Error while creating Institution")
+
+    def _save(self, new_institution):
+        return Institution.encode(
+            Institution.decode(new_institution)
+            .put()
+            .get())

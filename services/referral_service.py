@@ -1,9 +1,10 @@
 import endpoints
 from google.appengine.ext import ndb
+from google.appengine.ext.ndb import Cursor
 
 from domain.institution_domain import Institution
 from domain.referral_domain import Referral
-from messages.referral_converter import convert_to_into_entity, convert_entity_into_to
+from messages.referral_messages import ReferralListResponse
 from utils.caas_utils import normalize_email
 
 
@@ -23,37 +24,26 @@ class ReferralService:
         return ReferralService.__instance
 
     def create(self, new_referral):
-        normalized_email = normalize_email(new_referral.email)
-        if normalized_email:
-            referral = convert_to_into_entity(new_referral)
-            referral.email = normalized_email
-            # TODO: @Marco Tulio Qual a maneira correta de fazer?
-            # Olha como estao minhas importacoes de NDB, etc.. isso ta dando um no na minha cabeca.
+        self._validate_entity_creation(new_referral)
+        return self._save(new_referral)
 
-            # referral.institution_code = institution_query.code
+    def get_by_institution(self, request):
+        cursor = Cursor(urlsafe=request.cursor)
+        referrals, next_cursor, more = Referral.query(
+            Referral.institution_id == ndb.Key(Institution, request.institution_id)).fetch_page(
+            page_size=request.page_size, start_cursor=cursor)
+        response = ReferralListResponse()
+        response.referrals = [Referral.encode(r) for r in referrals]
+        if more and next_cursor:
+            response.cursor = next_cursor.urlsafe()
+        return response
 
-            # Option 1
-            #institution_query = Institution.get_by_id(new_referral.institution_id)
-            #referral.institution_id = institution_query.code
+    def _validate_entity_creation(self, new_referral):
+        if not normalize_email(new_referral.email):
+            raise endpoints.BadRequestException("Invalid email entry")
 
-            # Option 2
-            institution = Institution.get_by_id(new_referral.institution_id)
-            referral_id = referral.allocate_ids(size=1, parent=institution.key)[0]
-            referral_key = ndb.Key(Referral, referral_id, parent=institution.key)
-            referral.key = referral_key
-            referral.put()
-
-
-            return convert_entity_into_to(referral)
-        # TODO: How can I change the code error? 502 or something.
-        raise endpoints.BadRequestException
-
-    def fetch_referrals_from_institutions(self, id):
-        q = Referral.query(ancestor=ndb.Key(Institution, id))
-        referral_converted = []
-        for referral in q:
-            print referral
-            converted = convert_entity_into_to(referral)
-            referral_converted.append(converted)
-
-        return referral_converted
+    def _save(self, new_referral):
+        return Referral.encode(
+                Referral.decode(new_referral)
+                .put()
+                .get())
