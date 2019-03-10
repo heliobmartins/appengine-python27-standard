@@ -1,8 +1,7 @@
-import endpoints
 from google.appengine.ext.ndb import Cursor
 
-from domain.institution_domain import Institution
-from messages.institution_messages import InstitutionListResponse
+from domain.institution.institution_domain import Institution
+from domain.institution.institution_messages import InstitutionListResponse
 
 
 class InstitutionService(object):

@@ -1,7 +1,7 @@
 import endpoints
 from protorpc import remote
 
-from messages.referral_messages import ReferralRequest, ReferralResponse, ReferralListResponse, \
+from domain.referral.referral_messages import ReferralRequest, ReferralResponse, ReferralListResponse, \
     ReferralListByInstitutionRequest
 from services.referral_service import ReferralService
 from .api_definition import api_definition

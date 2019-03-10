@@ -1,6 +1,6 @@
 from google.appengine.ext import ndb
 
-from messages.referral_converter import convert_entity_into_to, convert_to_into_entity
+from domain.referral.referral_converter import convert_entity_into_to, convert_to_into_entity
 from utils.caas_utils import normalize_email
 
 

@@ -1,7 +1,7 @@
 """RPC Messages module."""
 from protorpc import messages as m
 
-from messages.institution_messages import InstitutionResponse
+from domain.institution.institution_messages import InstitutionResponse
 
 
 class ReferralRequest(m.Message):

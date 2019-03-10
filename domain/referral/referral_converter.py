@@ -1,7 +1,7 @@
 from google.appengine.ext import ndb
 
-from domain.institution_domain import Institution
-from messages.referral_messages import ReferralResponse
+from domain.institution.institution_domain import Institution
+from domain.referral.referral_messages import ReferralResponse
 
 
 def convert_entity_into_to(referral):
@@ -15,7 +15,7 @@ def convert_entity_into_to(referral):
 
 def convert_to_into_entity(referral_to):
     # @Marcot, this could be a problem as there are cross reference.
-    from domain.referral_domain import Referral
+    from domain.referral.referral_domain import Referral
     return Referral(claim_number=referral_to.claim_number,
                     name=referral_to.name,
                     email=referral_to.email,

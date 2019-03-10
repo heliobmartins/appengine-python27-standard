@@ -1,6 +1,6 @@
 from google.appengine.ext import ndb
 
-from messages.institution_converter import convert_entity_into_to, convert_to_into_entity
+from domain.institution.institution_converter import convert_entity_into_to, convert_to_into_entity
 
 
 class Institution(ndb.Model):

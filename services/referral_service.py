@@ -2,9 +2,9 @@ import endpoints
 from google.appengine.ext import ndb
 from google.appengine.ext.ndb import Cursor
 
-from domain.institution_domain import Institution
-from domain.referral_domain import Referral
-from messages.referral_messages import ReferralListResponse
+from domain.institution.institution_domain import Institution
+from domain.referral.referral_domain import Referral
+from domain.referral.referral_messages import ReferralListResponse
 from utils.caas_utils import normalize_email
 
 

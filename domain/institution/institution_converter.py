@@ -1,4 +1,4 @@
-from messages.institution_messages import InstitutionResponse
+from domain.institution.institution_messages import InstitutionResponse
 
 
 def convert_entity_into_to(institution):
@@ -10,7 +10,7 @@ def convert_entity_into_to(institution):
 
 def convert_to_into_entity(institution_to):
     # TODO: @Marcot, e quando voce tem essa situacao? Importacao cruzada?
-    from domain.institution_domain import Institution
+    from domain.institution.institution_domain import Institution
     return Institution(name=institution_to.name,
                        code=institution_to.code,
                        logo=institution_to.logo)

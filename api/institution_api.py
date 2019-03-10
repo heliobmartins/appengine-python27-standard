@@ -1,7 +1,7 @@
 import endpoints
 from protorpc import remote
 
-from messages.institution_messages import InstitutionResponse, InstitutionRequest, InstitutionListResponse, \
+from domain.institution.institution_messages import InstitutionResponse, InstitutionRequest, InstitutionListResponse, \
     InstitutionsRequest
 from services.institution_service import InstitutionService
 from .api_definition import api_definition
