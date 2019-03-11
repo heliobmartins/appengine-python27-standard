@@ -22,6 +22,10 @@ class ReferralResponse(m.Message):
     institution = m.MessageField(InstitutionResponse, 6)
 
 
+class ReferralIdRequest(m.Message):
+    id = m.IntegerField(1, required=True)
+
+
 class ReferralListByInstitutionRequest(m.Message):
     institution_id = m.IntegerField(1, required=True)
     cursor = m.StringField(2)

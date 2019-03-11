@@ -38,6 +38,15 @@ class ReferralService:
             response.cursor = next_cursor.urlsafe()
         return response
 
+    def delete(self, request):
+        print "\n\n"
+        print request
+        referral = Referral.get_by_id(request.id)
+        print "\n\n"
+        print referral
+        referral.key.delete()
+        return Referral.encode(referral)
+
     def _validate_entity_creation(self, new_referral):
         if not normalize_email(new_referral.email):
             raise endpoints.BadRequestException("Invalid email entry")
