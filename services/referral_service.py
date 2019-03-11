@@ -39,20 +39,44 @@ class ReferralService:
         return response
 
     def delete(self, request):
-        print "\n\n"
-        print request
         referral = Referral.get_by_id(request.id)
-        print "\n\n"
-        print referral
         referral.key.delete()
         return Referral.encode(referral)
+
+    def update(self, request):
+        referral = self._does_referral_exist(request.id)
+        return Referral.encode(self._validate_update(request, referral)
+                               .put()
+                               .get())
 
     def _validate_entity_creation(self, new_referral):
         if not normalize_email(new_referral.email):
             raise endpoints.BadRequestException("Invalid email entry")
+
+    def _does_referral_exist(self, id):
+        key = ndb.Key(Referral, id)
+        referral = key.get()
+        if referral is None:
+            raise endpoints.BadRequestException("Could not find the referral.")
+        return referral
 
     def _save(self, new_referral):
         return Referral.encode(
                 Referral.decode(new_referral)
                 .put()
                 .get())
+
+    def _validate_update(self, request, referral):
+        # What if the user has 30 properties. How would you address something so big?
+        if request.claim_number is not None:
+            referral.claim_number = request.claim_number
+        if request.new_name is not None:
+            referral.name = request.new_name
+        if request.new_email is not None:
+            referral.email = request.new_email
+        if request.new_phone is not None:
+            referral.phone = request.new_phone
+        if request.new_consent is not None:
+            referral.consent = request.new_consent
+        return referral
+

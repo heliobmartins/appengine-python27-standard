@@ -2,7 +2,7 @@ import endpoints
 from protorpc import remote
 
 from messages.referral_messages import ReferralRequest, ReferralResponse, ReferralListResponse, \
-    ReferralListByInstitutionRequest, ReferralIdRequest
+    ReferralListByInstitutionRequest, ReferralIdRequest, ReferralUpdateRequest
 from services.referral_service import ReferralService
 from .api_definition import api_definition
 
@@ -31,3 +31,10 @@ class ReferralApi(remote.Service):
                       name="delete")
     def delete(self, request):
         return self._service.delete(request)
+
+    @endpoints.method(ReferralUpdateRequest,
+                      ReferralResponse,
+                      path='update', http_method='PATCH',
+                      name="update")
+    def update(self, request):
+        return self._service.update(request)

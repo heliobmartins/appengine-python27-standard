@@ -27,8 +27,6 @@ class InstitutionService(object):
     def list_entities_by_code(self, request):
         cursor = Cursor(urlsafe=request.cursor)
         query = Institution.query()
-        print"\n\n\n"
-        print request
         if request.code:
             query = Institution.query(Institution.code == request.code)
         institutions, next_cursor, more = query.fetch_page(page_size=request.page_size, start_cursor=cursor)

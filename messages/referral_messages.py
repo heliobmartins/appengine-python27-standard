@@ -26,6 +26,21 @@ class ReferralIdRequest(m.Message):
     id = m.IntegerField(1, required=True)
 
 
+class ReferralUpdateRequest(m.Message):
+    id = m.IntegerField(1, required=True)
+    '''
+     @here: Does it makes more sense to reuse a Message, or define the Fields?
+     Option 1:
+     referral = m.MessageField(ReferralRequest, 2) 
+     Option 2:
+    '''
+    claim_number = m.IntegerField(2)
+    new_name = m.StringField(3)
+    new_email = m.StringField(4)
+    new_phone = m.StringField(5)
+    new_consent = m.BooleanField(6)
+
+
 class ReferralListByInstitutionRequest(m.Message):
     institution_id = m.IntegerField(1, required=True)
     cursor = m.StringField(2)
