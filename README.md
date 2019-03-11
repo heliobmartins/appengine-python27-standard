@@ -10,7 +10,7 @@ pip install -t lib -r requirements.txt
 
 #### Generating OpenApi config file to ReferralApi
 ```
-python lib/endpoints/endpointscfg.py get_openapi_spec api.ReferralApi --hostname caas-prototype.appspot.com
+python lib/endpoints/endpointscfg.py get_openapi_spec api.ReferralApi api.InstitutionApi --hostname caas-prototype.appspot.com
 ```
 
 ** Output:** *Caasv1openapi.json*
